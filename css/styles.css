@@ -556,10 +556,10 @@ nav {
   transition: transform 250ms var(--timing-function);
 
 }
-.overlay:hover .overlay-text {
+.overlay-link:hover .overlay-text {
  transform: scaleY(1);
 }
-.overlay:hover::before {
+.overlay-link:hover .overlay::before {
   transform: scaleY(1);
 }
 .page-title {
@@ -576,4 +576,5 @@ nav {
   letter-spacing: 0.03em;
   color: var(--secondary-text-color);
 }
+
 
