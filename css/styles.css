@@ -85,7 +85,6 @@ nav {
 }
 
 .list a {
-  color: var(--secondary-text-color);
   fill: var(--secondary-text-color);
   transition: color fill 250ms var(--timing-function);
 }
@@ -124,6 +123,11 @@ nav {
 }
 .head-mail,
 .head-phone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   line-height: 16px;
@@ -198,13 +202,17 @@ nav {
   opacity: 0;
   pointer-events: none;
 }
+.backdrop.is-hidden .modal{
+  transform: translate(-50%, -50%) scale(1);
+}
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 528px;
   height: 581px;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1) rotate(360deg);
+  transition: transform 250ms var(--timing-function);
   background-color: #fff;
 }
 .close-btn {
