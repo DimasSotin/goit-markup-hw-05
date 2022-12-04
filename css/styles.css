@@ -3,6 +3,7 @@
   --secondary-text-color: #757575;
   --main-hover-color: #2196f3;
   --accent-color: #ffffff;
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1)
 }
 p,
 h1,
@@ -70,6 +71,7 @@ nav {
   color: var(--primary-color);
 }
 .list-item {
+  position: relative;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   line-height: 1.14;
@@ -81,9 +83,11 @@ nav {
 .list-item:last-child {
   margin-right: 0;
 }
+
 .list a {
   color: var(--secondary-text-color);
   fill: var(--secondary-text-color);
+  transition: color fill 250ms var(--timing-function);
 }
 .list a:hover,
 .list a:focus {
@@ -92,6 +96,25 @@ nav {
 }
 .item.current {
   color: var(--main-hover-color);
+}
+
+.item::after {
+  position: absolute;
+  content: "";
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--main-hover-color);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform 250ms var(--timing-function);
+}
+.item.current::after{
+  transform: scaleX(1);
+}
+.item:hover::after {
+  transform: scaleX(1);
 }
 .auth-nav {
   margin-left: 344px;
@@ -120,7 +143,7 @@ nav {
 /*--------------------- hero-------------- */
 
 .hero {
-  min-height: 600px;
+  height: 600px;
   color: var(--accent-color);
   text-align: center;
   background-repeat: no-repeat;
@@ -157,10 +180,47 @@ nav {
   color: var(--accent-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  transition: background-color 250ms var(--timing-function);
+
 }
 .hero-btn:hover,
 .hero-btn:focus {
-  background-color: var(--main-hover-color);
+  background-color: #188CE8;;
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 528px;
+  height: 581px;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+}
+.close-btn {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.icon-close {
+  fill: black;
+  color: #212121;
 }
 /*--------------------- features-------------- */
 .hidden-title {
@@ -217,7 +277,6 @@ nav {
 .work ul {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 94px;
 }
 .work-title {
   font-family: "Roboto", sans-serif;
@@ -227,7 +286,24 @@ nav {
   margin-bottom: 50px;
   color: var(--primary-color);
 }
-
+.work-item {
+  position: relative;
+  display: flex;
+}
+.work-text {
+  position: absolute;
+  width: 100%;
+  height: 70px;
+  bottom: 0;
+  background: rgba(47, 48, 58, 0.8);
+  font-family: "Roboto";
+  font-size: 14px;
+  line-height: 16px;
+  padding-top: 27px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
 /*--------------------- our team-------------- */
 .team {
   background: #f5f4fa;
@@ -276,12 +352,14 @@ nav {
 .networks {
   width: 44px;
   height: 44px;
-  background-color: unset;
+  background-color:inherit;
   border: none;
   border-radius: 50%;
   padding: 12px;
   margin-bottom: 30px;
   fill: var(--secondary-text-color);
+  transition: background-color 250ms var(--timing-function),
+  fill 250ms var(--timing-function);
 }
 .networks:hover {
   background-color: #2196f3;
@@ -290,12 +368,8 @@ nav {
 .icon-net {
   width: 20px;
   height: 20px;
-  fill: inherit;
 }
 
-/* .icon-net:hover {
-  fill: var(--accent-color);
-} */
 /*--------------------- clients-------------- */
 .clients-title {
   font-family: "Roboto";
@@ -317,6 +391,8 @@ nav {
   border: 1px solid #afb1b8;
   border-radius: 4px;
   fill: #afb1b8;
+   transition: border-color 250ms var(--timing-function),
+  fill 250ms var(--timing-function);
 }
 
 .icon-btn:hover {
@@ -372,6 +448,7 @@ nav {
   fill: var(--accent-color);
   margin-right: 10px;
   background: rgba(255, 255, 255, 0.1);
+ transition: background-color 250ms var(--timing-function);
 }
 
 .social-btn:hover,
@@ -419,6 +496,8 @@ nav {
   border-radius: 4px;
   cursor: pointer;
   color: var(--primary-colo);
+   transition: background-color 250ms var(--timing-function),
+    color 250ms var(--timing-function);
 }
 .serv-btn:hover,
 .serv-btn:focus {
@@ -435,18 +514,59 @@ nav {
 .example {
   margin-right: 30px;
   margin-bottom: 30px;
-  border: 1px solid #eeeeee;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
+    1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 .example:nth-child(3n) {
   margin-right: 0px;
+}
+.text-box {
+  border-right: 1px solid #eeeeee;
+  border-left: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+  padding: 20px 24px;
+}
+.overlay {
+  position: relative;
+  display: flex;
+}
+.overlay::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 150, 243, 0.9);
+ transform: scaleY(0);
+ transform-origin: bottom;
+  transition: transform 250ms var(--timing-function);
+}
+.overlay-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding: 63px 24px;
+  font-size: 18px;
+  line-height: calc(28 / 18);
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 250ms var(--timing-function);
+
+}
+.overlay:hover .overlay-text {
+ transform: scaleY(1);
+}
+.overlay:hover::before {
+  transform: scaleY(1);
 }
 .page-title {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
   line-height: 2;
   letter-spacing: 0.06em;
-  margin-top: 20px;
-  padding-left: 24px;
   color: var(--primary-color);
 }
 .options {
@@ -454,7 +574,6 @@ nav {
   font-size: 16px;
   line-height: 1.88;
   letter-spacing: 0.03em;
-  padding-left: 24px;
-  padding-bottom: 20px;
   color: var(--secondary-text-color);
 }
+
